@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   const [index, setindex] = useState(0);
-  const [showMore, setshowMore] = useState(false);
+  const [showMore, setshowMore] = useState(true);
 
   function handleNextClick() {
     setindex(index === sculptureList.length - 1 ? index : index + 1);
@@ -24,7 +24,7 @@ function App() {
         <img className="image" src={sculpture.url} alt={sculpture.alt} />
         <div className="info">
           <h2 className="name">{sculpture.name}</h2>
-          <h5 className="artistName">{sculpture.artist}</h5>
+          <h6 className="artistName">Artist: {sculpture.artist}</h6>
           <button className="button" onClick={handleMoreDetailsClick}>
             {showMore ? "hide" : "show"} details
           </button>
