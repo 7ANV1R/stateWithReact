@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { sculptureList } from "./data.js";
+import "./App.css";
 
 function App() {
+  const [index, setindex] = useState(0);
+  const [showMore, setshowMore] = useState(false);
+
+  function handleNextClick() {
+    setindex(index === sculptureList.length - 1 ? index : index + 1);
+  }
+  function handlePrevClick() {
+    setindex(index === 0 ? index : index - 1);
+  }
+
+  function handleMoreDetailsClick() {
+    setshowMore(!showMore);
+  }
+
+  let sculpture = sculptureList[index];
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="header">
+        <img className="image" src={sculpture.url} alt={sculpture.alt} />
+        <div className="info">
+          <h2 className="name">{sculpture.name}</h2>
+          <h5 className="artistName">{sculpture.artist}</h5>
+          <button className="button" onClick={handleMoreDetailsClick}>
+            {showMore ? "hide" : "show"} details
+          </button>
+          {showMore && <p>{sculpture.description}</p>}
+        </div>
+      </div>
+      <div className="bottom">
+        <h5>
+          ( {index + 1} of {sculptureList.length} )
+        </h5>
+      </div>
+      <div className="bottom-button">
+        <button className="button" onClick={handlePrevClick}>
+          Prev
+        </button>
+        <button className="button" onClick={handleNextClick}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
